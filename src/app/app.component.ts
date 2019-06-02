@@ -7,10 +7,19 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  Object = Object;
   willDownload = false;
   output:any;
-data:any;
+  data:any;
+  _k:any;
   dataString: any;
+  columnsArr: any[];
+
+  public keyArray: Array<any> = [];
+  value: any;
+  item: any;
+  emtKey: string;
+
   constructor() { }
 
   onFileChange(ev) {
@@ -26,12 +35,15 @@ data:any;
         initial[name] = XLSX.utils.sheet_to_json(sheet);
         return initial;
       }, {});
+      this.columnsArr = [];
       this.data = Object.keys(jsonData).map(key=>jsonData[key])
       console.log(this.data);
-      this.data.map(elm => {
-        this.dataString = elm;
-        console.log('===>',this.dataString);
+      this.data.forEach((elm, index) => {
+        this.item = elm;
+        for (var firstKey in this.item[0]) break;
+          this.emtKey = firstKey;
       });
+     
       // this.output = dataString.slice(0, 300);
       // this.setDownload(dataString);
     }
@@ -51,3 +63,27 @@ data:any;
 
 
 }
+
+
+// var arr = [ [ { "eid": "e101", "ename": "ravi", "esal": 1000 }, { "eid": "e102", "ename": "ram", "esal": 2000 }, { "eid": "e103", "ename": "rajesh", "esal": 3000 } ], [ { "name": "asd", "id": 23, "address": "asd" }, { "name": "wer", "id": 34, "address": "jjkk" }, { "name": "qwer", "id": 90, "address": "oipp" } ] ]
+// var keyarr = [];
+
+// for(i=0; i<arr.length; i++){
+
+// for(j=0; j<arr[i].length; j++){
+
+// for (var key in arr[i][j]) {
+//       if (arr[i][j].hasOwnProperty(key)) {
+//         keyarr.push(key);
+//       }
+//     }
+// }
+
+// }
+// for(k=0; k<keyarr.length; k++){
+// if(){
+
+// }
+// }
+
+// console.log(keyarr);
